@@ -3,8 +3,7 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 //--
 const galleryContainer = document.querySelector(".gallery"); // Знаходимо об'єкт
-//--
-
+//--git
 const imageCard = createImageCard(galleryItems); // Функція для створенню карток з фото
 galleryContainer.insertAdjacentHTML("beforeend", imageCard);
 function createImageCard(gallery) {
