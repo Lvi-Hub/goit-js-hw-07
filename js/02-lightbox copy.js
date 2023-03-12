@@ -3,6 +3,8 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 //--
 const galleryContainer = document.querySelector(".gallery"); // Знаходимо об'єкт
+galleryContainer.addEventListener(`click`, createBasicLightbox); // Ловима клік
+
 //--
 const imageCard = createImageCard(galleryItems); // Функція для створенню карток з фото
 galleryContainer.insertAdjacentHTML("beforeend", imageCard);
@@ -23,13 +25,20 @@ function createImageCard(gallery) {
     .join("");
 }
 
-var lightbox = new SimpleLightbox(".gallery a", {
-  captionsData: "alt",
-  captionDelay: 250,
-});
+//--
+function createBasicLightbox(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
 
-lightbox.on("show.simplelightbox", function () {});
+  var lightbox = new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionDelay: 250,
+  });
+  gallery.on("show.simplelightbox", function () {});
 
-lightbox.on("error.simplelightbox", function (e) {
-  console.log(e);
-});
+  gallery.on("error.simplelightbox", function (e) {
+    console.log(e);
+  });
+}
