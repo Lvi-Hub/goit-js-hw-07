@@ -4,6 +4,7 @@ import { galleryItems } from "./gallery-items.js";
 //--
 const galleryContainer = document.querySelector(".gallery"); // Знаходимо об'єкт
 //--
+
 const imageCard = createImageCard(galleryItems); // Функція для створенню карток з фото
 galleryContainer.insertAdjacentHTML("beforeend", imageCard);
 function createImageCard(gallery) {
