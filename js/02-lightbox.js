@@ -1,37 +1,39 @@
+// Імпортуємо галерею з фото
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-const galleryContainer = document.querySelector(".gallery");
-const imageCard = createImageCard(galleryItems);
+//--
+const galleryContainer = document.querySelector(".gallery"); // Знаходимо об'єкт
+galleryContainer.addEventListener(`click`, createBasicLightbox); // Ловима клік
 
+//--
+const imageCard = createImageCard(galleryItems); // Функція для створенню карток з фото
 galleryContainer.insertAdjacentHTML("beforeend", imageCard);
-
 function createImageCard(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
       return `
-      <div class="gallery__item">
-        <a class="gallery__link" href="#">
-            <img
+      <li >
+        <a  class="gallery__item" href="${original}">
+            <img style="display: block"
                 class="gallery__image"
                 src="${preview}"
-                data-source="${original}"
                 alt="${description}"
             />
         </a>
-    </div>`;
+    </li>`;
     })
     .join("");
 }
 
-document.querySelector(".gallery").onclick = (e) => {
-  if (e.target.nodeName !== "IMG") {
+//--
+function createBasicLightbox(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
     return;
   }
-  basicLightbox
-    .create(
-      `
-		<img width="100%" height="100%" src="${e.target.dataset.source}">
-	`
-    )
-    .show();
-};
+
+  var lightbox = new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionDelay: 250,
+  });
+}

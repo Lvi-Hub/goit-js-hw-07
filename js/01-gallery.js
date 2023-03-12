@@ -6,10 +6,10 @@ const galleryContainer = document.querySelector(".gallery"); // Знаходим
 galleryContainer.addEventListener(`click`, createBasicLightbox); // Ловима клік
 
 //--
-const imageCard = createImageCard(galleryItems); // Функція по створенню карток з фото
+const imageCard = createImageCard(galleryItems); // Виклик функція по створенню карток з фото
 galleryContainer.insertAdjacentHTML("beforeend", imageCard);
-function createImageCard(gallery) {
-  return gallery
+function createImageCard(e) {
+  return e
     .map(({ preview, original, description }) => {
       return `
       <div class="gallery__item">
