@@ -1,12 +1,13 @@
+// Імпортуємо галерею з фото
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
+//--
+const galleryContainer = document.querySelector(".gallery"); // Знаходимо об'єкт
+galleryContainer.addEventListener(`click`, createBasicLightbox); // Ловима клік
 
-const galleryContainer = document.querySelector(".gallery");
-const imageCard = createImageCard(galleryItems);
-//const basicLightboxOn = document.querySelector("");
-
+//--
+const imageCard = createImageCard(galleryItems); // Функція по створенню карток з фото
 galleryContainer.insertAdjacentHTML("beforeend", imageCard);
-
 function createImageCard(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
@@ -24,25 +25,24 @@ function createImageCard(gallery) {
     })
     .join("");
 }
-
-const lightBox = (document.querySelector(".gallery").onclick = (e) => {
-  e.preventDefault();
-  if (e.target.nodeName !== "IMG") {
+//--
+function createBasicLightbox(event) {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
     return;
   }
-  const instance = basicLightbox.create(
-    `<img width="100%" height="100%" src="${e.target.dataset.source}">`
-  );
+  const instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}">
+`);
   instance.show();
-  if (instance.visible()) {
-    window.addEventListener("keydown", (e) => {
-      if (e.code === "Escape") {
-        instance.close();
-        console.log(e);
-      }
-    });
+
+  window.addEventListener(`keydown`, closeLightbox);
+  function closeLightbox(e) {
+    console.log(e);
+    if (e.code !== "Escape") {
+      return;
+    }
+    window.removeEventListener(`keydown`, closeLightbox);
+    instance.close();
   }
-  if (!instance.visible()) {
-    window.removeEventListener("keydown", e);
-  }
-});
+}
