@@ -27,9 +27,3 @@ var lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionDelay: 250,
 });
-
-lightbox.on("show.simplelightbox", function () {});
-
-lightbox.on("error.simplelightbox", function (e) {
-  console.log(e);
-});
